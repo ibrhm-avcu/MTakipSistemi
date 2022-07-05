@@ -1,0 +1,63 @@
+﻿@model EntityLayer.Entities.User
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<form method="post" action="/Hesap/Update">
+    <div class="container">
+        <br />
+        <div class="form-group">
+            <label>Ad</label>
+            <input type="text" class="form-control" name="Name" value="@Model.Name" required />
+            @Html.ValidationMessageFor(x => x.Name, "", new { @style = "color:red" })
+
+        </div>
+
+        <div class="form-group">
+            <label>Soyad</label>
+            <input type="text" class="form-control" name="Surname" value="@Model.SurName" required />
+            @Html.ValidationMessageFor(x => x.SurName, "", new { @style = "color:red" })
+
+        </div>
+
+
+
+        <div class="form-group">
+            <label>E-Mail</label>
+            <input type="email" class="form-control" name="Mail" value="@Model.Mail" required />
+            @Html.ValidationMessageFor(x => x.Mail, "", new { @style = "color:red" })
+
+        </div>
+        <div class="form-group">
+            <label>Eski Şifreniz</label>
+            <input type="password" class="form-control" name="BackPassword" value="" required />
+        </div>
+
+        <div class="form-group">
+            <label>Şifre</label>
+            <input type="password" class="form-control" name="Password" value="@Model.Password" required />
+            @Html.ValidationMessageFor(x => x.Password, "", new { @style = "color:red" })
+
+        </div>
+        <div class="form-group">
+            <label>Çift Faktörlü Kimlik Doğrulama</label>
+            @if (Model.Dogrulama == false)
+            {
+            
+                <input type="checkbox" class="checkbox" name="Dogrulama" value="true"/>
+            }
+            else
+            {
+                <input type="checkbox" class="checkbox" checked name="Dogrulama" value="false" />
+            }
+        </div>
+        <div class="form-group">
+            <label style="color:red">@ViewBag.uyari</label>
+            <label style="color:green">@ViewBag.basarili</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Güncelle</button>
+    </div>
+</form>

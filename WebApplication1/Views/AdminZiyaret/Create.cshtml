@@ -1,0 +1,72 @@
+﻿@model EntityLayer.Entities.Ziyaret
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-header">
+            <strong>Ziyeret</strong> Ekle
+        </div>
+
+        <div class="card-body card-block">
+            <form method="post" action="/AdminZiyaret/Create" class="form-horizontal">
+                @Html.AntiForgeryToken()
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">İsim</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="Name" class="form-control"></div>
+                    @Html.ValidationMessageFor(x => x.Name, "", new { @style = "color:red" })
+
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Atanacak Personel</label></div>
+                    @Html.DropDownListFor(x => x.UserId, (List<SelectListItem>)ViewBag.ktgr, new { @class = "form-control", @name = "UserId" })
+                    @Html.ValidationMessageFor(x => x.UserId, "", new { @style = "color:red" })
+
+
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Ziyaret Edilecek Şube</label></div>
+                    @Html.DropDownListFor(x => x.SubeId, (List<SelectListItem>)ViewBag.ktgr1, new { @class = "form-control", @name = "SubeId" })
+                    @Html.ValidationMessageFor(x => x.SubeId, "", new { @style = "color:red" })
+
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Ziyaret Tarihi</label></div>
+                    <div class="col-12 col-md-9"><input type="datetime-local" id="text-input" name="ZiyaretDate" class="form-control" ></div>
+                    @Html.ValidationMessageFor(x => x.ZiyaretDate, "", new { @style = "color:red" })
+
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Konum</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="Location" class="form-control" ></div>
+                    @Html.ValidationMessageFor(x => x.Location, "", new { @style = "color:red" })
+
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Not</label></div>
+                    <div class="col-12 col-md-9"><textarea name="Not"class="form-control"></textarea></div>
+                </div>
+
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa fa-dot-circle-o"></i> Ekle
+                    </button>
+                    <button type="reset" class="btn btn-danger btn-sm">
+                        <i class="fa fa-ban"></i> Temizle
+                    </button>
+
+                </div>
+                <label style="color:red">@ViewBag.hata</label>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+

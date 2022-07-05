@@ -1,0 +1,125 @@
+﻿@model PagedList.IPagedList<EntityLayer.Entities.Ziyaret>
+@using PagedList
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@Html.Action("Filtre", "PersonelZiyaret")
+<style>
+    .boldyap > td {
+        font-weight: bold !important;
+    }
+</style>
+<table class="table table-bordered" id="table">
+    <thead>
+        <tr class="boldyap">
+            <td>Id</td>
+            <td>İsim</td>
+            <td>Personel</td>
+            <td>Oluşturma Tarihi</td>
+            <td>En Son Güncellenme Tarihi</td>
+            <td>Konum</td>
+            <td>Resim</td>
+            <td>Ziyaret Tarihi</td>
+            <td>Şube</td>
+            <td>Not</td>
+            <td>Durum</td>
+            <td>Güncelle</td>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        if (item.UserId == Convert.ToInt32(Session["userid"]))
+        {
+
+            <tr>
+                <td>@item.ZiyaretId</td>
+                <td>@item.Name</td>
+                <td>@item.User.Name</td>
+                <td>@item.CreateDate</td>
+                <td>@item.UpdateDate</td>
+                <td>@item.Location</td>
+                @if (item.image == null)
+                {
+                    <td>Henüz Resim Yüklemediniz</td>
+                }
+                else
+                {
+                    <td><img src="~/Content/images/@item.image" width="100" /></td>
+
+                }
+                <td>@item.ZiyaretDate</td>
+                <td>@item.Sube.Name</td>
+                <td>@item.Not</td>
+                @if (item.DurumId == 1)
+                {
+                    <td style="font-weight:bold">Ziyaret Edilmedi</td>
+                }
+                else if (item.DurumId == 2)
+                {
+                    <td>Ziyaret Gerçeleştirildi Onay Bekleniyor</td>
+                }
+                else if (item.DurumId == 3)
+                {
+                    <td>Ziyaret Onaylanmadı Tekrar Ziyaret Edilecek</td>
+                }
+                else
+                {
+                    <td>Ziyaret Onaylandı</td>
+                }
+                <td><a class="btn btn-primary" href="/PersonelZiyaret/Update/@item.ZiyaretId">Ziyaret et</a></td>
+            </tr>
+        }
+
+    }
+</table>
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }))
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+<link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css" />
+<script type="text/javascript" src="DataTables/datatables.min.js"></script>
+<script>
+
+    $('#table').dataTable({
+
+        "paging": false,
+
+        "searching": false,
+
+        language: {
+
+            info: "_TOTAL_ kayıttan _START_ - _END_ kayıt gösteriliyor.",
+
+            infoEmpty: "Gösterilecek hiç kayıt yok.",
+
+            loadingRecords: "Kayıtlar yükleniyor.",
+
+            lengthMenu: "Sayfada _MENU_ kayıt göster",
+
+            zeroRecords: "Tablo boş",
+
+            search: "Arama:",
+
+            infoFiltered: "(toplam _MAX_ kayıttan filtrelenenler)",
+
+            buttons: {
+
+                copyTitle: "Panoya kopyalandı.",
+
+                copySuccess: "Panoya %d satır kopyalandı",
+
+                copy: "Kopyala",
+
+                print: "Yazdır",
+
+            },
+        }
+    });
+</script>

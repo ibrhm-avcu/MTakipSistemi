@@ -1,0 +1,69 @@
+﻿@model EntityLayer.Entities.Fatura
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-header">
+            <strong>Şube</strong> Ekle
+        </div>
+
+        <div class="card-body card-block">
+            <form method="post" action="/PersonelSatis/Create" class="form-horizontal">
+                @Html.AntiForgeryToken()
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Ürün Adı</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="ProductName" class="form-control"></div>
+                    @Html.ValidationMessageFor(x => x.ProductName, "", new { @style = "color:red" })
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Para Birimi</label></div>
+                    @Html.DropDownListFor(x => x.DovizId, (List<SelectListItem>)ViewBag.ktgr1, new { @class = "form-control", @name = "DovizId" })
+                        @Html.ValidationMessageFor(x => x.DovizId, "", new { @style = "color:red" })
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Fiyat</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="Price" class="form-control">
+                     <p>, ile ayırınız ör: 12,25</p></div>
+                    @Html.ValidationMessageFor(x => x.Price, "", new { @style = "color:red" })
+
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Miktar</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="Miktar" class="form-control"></div>
+                    @Html.ValidationMessageFor(x => x.Miktar, "", new { @style = "color:red" })
+
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Adet</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="Adet" class="form-control"></div>
+                    @Html.ValidationMessageFor(x => x.Adet, "", new { @style = "color:red" })
+
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Fatura Kesilecek Müşteri</label></div>
+                    @Html.DropDownListFor(x => x.CustomerId, (List<SelectListItem>)ViewBag.ktgr, new { @class = "form-control", @name = "CustomerId" })
+                    @Html.ValidationMessageFor(x => x.CustomerId, "", new { @style = "color:red" })
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa fa-dot-circle-o"></i> Ekle
+                    </button>
+                    <button type="reset" class="btn btn-danger btn-sm">
+                        <i class="fa fa-ban"></i> Temizle
+                    </button>
+
+                </div>
+                <label style="color:red">@ViewBag.hata</label>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+

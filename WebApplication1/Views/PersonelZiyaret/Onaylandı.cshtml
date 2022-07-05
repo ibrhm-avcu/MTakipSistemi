@@ -1,0 +1,65 @@
+﻿@model PagedList.IPagedList<EntityLayer.Entities.Ziyaret>
+@using PagedList
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Onaylandı";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@Html.Action("Filtre", "PersonelZiyaret")
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>İsim</td>
+            <td>Personel</td>
+            <td>Oluşturma Tarihi</td>
+            <td>En Son Güncellenme Tarihi</td>
+            <td>Konum</td>
+            <td>Resim</td>
+            <td>Ziyaret Tarihi</td>
+            <td>Şube</td>
+            <td>Not</td>
+            <td>Durum</td>
+            <td>Güncelle</td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            if (item.UserId == Convert.ToInt32(Session["userid"]))
+            {
+                if (item.DurumId == 4)
+                {
+
+
+                    <tr>
+                        <td>@item.ZiyaretId</td>
+                        <td>@item.Name</td>
+                        <td>@item.User.Name</td>
+                        <td>@item.CreateDate</td>
+                        <td>@item.UpdateDate</td>
+                        <td>@item.Location</td>
+                        @if (item.image == null)
+                        {
+                            <td>Henüz Resim Yüklemediniz</td>
+                        }
+                        else
+                        {
+                            <td><img src="~/Content/images/@item.image" width="100" /></td>
+
+                        }
+                        <td>@item.ZiyaretDate</td>
+                        <td>@item.Sube.Name</td>
+                        <td>@item.Not</td>
+                        <td>@item.Durumogeleri.Durum</td>
+
+                        <td><a class="btn btn-primary" href="/PersonelZiyaret/Update/@item.ZiyaretId">Ziyaret et</a></td>
+                    </tr>
+                }
+
+            }
+
+        }
+    </thead>
+</table>
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }))

@@ -1,0 +1,36 @@
+﻿@model PagedList.IPagedList<EntityLayer.Entities.Sube>
+@using PagedList
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<style>
+    .boldyap > td {
+        font-weight: bold !important;
+    }
+</style>
+<center><a href="/Sube/Create" class="btn btn-primary">Şube Ekle</a></center>
+<table class="table table-bordered">
+    <thead>
+        <tr class="boldyap">
+            <td>Id</td>
+            <td>İsim</td>
+            <td>Güncelle</td>
+            <td>Sil</td>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.SubeId</td>
+            <td>@item.Name</td>
+            <td><a class="btn btn-primary" href="/Sube/Update/@item.SubeId">Güncelle</a></td>
+            <td>@Html.ActionLink("Sil", "Delete", new { item.SubeId }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek istiyormusunuz?')" })</td>
+        </tr>
+    }
+</table>
+
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }))

@@ -1,0 +1,44 @@
+﻿@model EntityLayer.Entities.Sube
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-header">
+            <strong>Şube</strong> Güncelle
+        </div>
+
+        <div class="card-body card-block">
+            <form method="post" action="/Sube/Update" class="form-horizontal">
+                @Html.AntiForgeryToken()
+                <div class="row form-group" style="display:none;">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Id</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="SubeId" value="@Model.SubeId" class="form-control" required></div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">İsim</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="Name" value="@Model.Name" class="form-control"></div>
+                    @Html.ValidationMessageFor(x => x.Name, "", new { @style = "color:red" })
+
+                </div>
+       
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa fa-dot-circle-o"></i> Güncelle
+                    </button>
+                    <button type="reset" class="btn btn-danger btn-sm">
+                        <i class="fa fa-ban"></i> Temizle
+                    </button>
+
+                </div>
+                <label style="color:red">@ViewBag.hata</label>
+
+            </form>
+        </div>
+    </div>
+
+</div>

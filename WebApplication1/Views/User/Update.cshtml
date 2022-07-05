@@ -1,0 +1,60 @@
+﻿@model EntityLayer.Entities.User
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-header">
+            <strong>Personel</strong> Ekle
+        </div>
+
+        <div class="card-body card-block">
+            <form method="post" action="/User/Update" class="form-horizontal">
+                @Html.AntiForgeryToken()
+                <div class="row form-group" style="display:none;">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Id</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="UserId" value="@Model.UserId" class="form-control" required></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">İsim</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="Name" value="@Model.Name" class="form-control" ></div>
+                    @Html.ValidationMessageFor(x => x.Name, "", new { @style = "color:red" })
+
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Soy İsim</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="SurName" value="@Model.SurName" class="form-control" ></div>
+                    @Html.ValidationMessageFor(x => x.SurName, "", new { @style = "color:red" })
+
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Mail</label></div>
+                    <div class="col-12 col-md-9"><input type="email" id="text-input" name="Mail" value="@Model.Mail" class="form-control" ></div>
+                    @Html.ValidationMessageFor(x => x.Mail, "", new { @style = "color:red" })
+
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Şifre</label></div>
+                    <div class="col-12 col-md-9"><input type="password" id="text-input" name="Password" value="@Model.Password" class="form-control" ></div>
+                    @Html.ValidationMessageFor(x => x.Password, "", new { @style = "color:red" })
+
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa fa-dot-circle-o"></i> Güncelle
+                    </button>
+                    <button type="reset" class="btn btn-danger btn-sm">
+                        <i class="fa fa-ban"></i> Temizle
+                    </button>
+
+                </div>
+                <label style="color:red">@ViewBag.hata</label>
+
+            </form>
+        </div>
+    </div>
+
+</div>

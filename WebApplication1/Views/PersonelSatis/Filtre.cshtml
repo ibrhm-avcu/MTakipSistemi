@@ -1,0 +1,14 @@
+﻿<div class="float-right">
+    @using (Html.BeginForm("Ara", "PersonelSatis", FormMethod.Post))
+    {
+        <div class="form-group">
+            <div style="width:75%; float:left;">
+                @Html.TextBox("p", null, new { @class = "form-control float-left" })
+
+            </div>
+            <div style="width:25%; float:left;">
+                <input type="submit" class="float-left btn btn-success" value="ara" />
+            </div>
+        </div>
+    }
+</div>

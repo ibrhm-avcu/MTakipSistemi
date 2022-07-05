@@ -1,0 +1,62 @@
+﻿@model PagedList.IPagedList<EntityLayer.Entities.ZiyaretGecmis>
+@using PagedList
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "History";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+
+<center>
+    <h2>Geçmiş</h2>
+</center>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>İsim</td>
+            <td>Personel</td>
+            <td>Gerçekleşme Tarihi</td>
+            <td>Ziyaret Tarihi</td>
+            <td>Konum</td>
+            <td>Resim</td>
+            <td>Şube</td>
+            <td>Durum</td>
+            <td>Not</td>
+
+        </tr>
+        @foreach (var item in Model)
+        {
+            if (item.ZiyaretId == item.Ziyaret.ZiyaretId)
+            {
+
+            <tr>
+                <td>@item.ZiyaretGecmisId</td>
+                <td>@item.Name</td>
+                <td>@item.UserId</td>
+                <td>@item.GerceklesmeTarihi</td>
+                <td>@item.ZiyaretDate</td>
+                <td>@item.Location</td>
+                @if (item.image == null)
+                {
+                    <td>Personel Henüz Resim Yüklemedi</td>
+                }
+                else
+                {
+                    <td><img src="~/Content/images/@item.image" width="100" /></td>
+
+                }
+                <td>@item.SubeId</td>
+                <td>@item.DurumId</td>
+                <td>@item.Not</td>
+            </tr>
+            }
+
+        }
+    </thead>
+</table>
+
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }))
+

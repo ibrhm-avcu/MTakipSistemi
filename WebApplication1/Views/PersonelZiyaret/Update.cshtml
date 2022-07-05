@@ -1,0 +1,80 @@
+﻿@model EntityLayer.Entities.Ziyaret
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-header">
+            <strong>Ziyeret</strong> Güncelle
+            <p>Sadece jpg ve png yükleyniz.</p>
+        </div>
+
+        <div class="card-body card-block">
+            <form method="post" action="/PersonelZiyaret/Update" enctype="multipart/form-data" class="form-horizontal">
+                @Html.AntiForgeryToken()
+
+                <div class="row form-group" style="display:none;">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Id</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" name="ZiyaretId" value="@Model.ZiyaretId" class="form-control" required></div>
+                    @Html.ValidationMessageFor(x => x.ZiyaretId, "", new { @style = "color:red" })
+                </div>
+                <div class="row form-group" style="display:none;">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">İsim</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" value="@Model.Name" name="Name" class="form-control"></div>
+                    @Html.ValidationMessageFor(x => x.Name, "", new { @style = "color:red" })
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Resim</label></div>
+                    <div class="col-12 col-md-9">
+                        @if (Model.image == null)
+                        {
+                            <p>Henüz Resim Eklemediniz</p>
+                        }
+                        else
+                        {
+                            <img src="~/Content/images/@Model.image" width="100" />
+                        }
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Resim Ekle</label></div>
+                    <div class="col-12 col-md-9"><input type="file" name="File" class="form-control" required>
+                    <p>Max 2mb</p></div>
+                    @Html.ValidationMessageFor(x => x.image, "", new { @style = "color:red" })
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Konum</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="text-input" value="@Model.Location" name="Location" class="form-control"></div>
+                    @Html.ValidationMessageFor(x => x.Location, "", new { @style = "color:red" })
+
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Not</label></div>
+                    <div class="col-12 col-md-9"><textarea name="Not" class="form-control">@Model.Not</textarea></div>
+                    @Html.ValidationMessageFor(x => x.Not, "", new { @style = "color:red" })
+                </div>
+
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa fa-dot-circle-o"></i> Güncelle
+                    </button>
+                    <button type="reset" class="btn btn-danger btn-sm">
+                        <i class="fa fa-ban"></i> Temizle
+                    </button>
+
+                </div>
+                <label style="color:red">@ViewBag.hata</label>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+

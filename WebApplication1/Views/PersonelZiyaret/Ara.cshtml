@@ -1,0 +1,86 @@
+﻿@model  List<EntityLayer.Entities.Ziyaret>
+
+@{
+    ViewBag.Title = "Ara";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<center><a href="/AdminZiyaret/Create" class="btn btn-primary">Ziyaret Ekle</a></center>
+
+<br />
+@Html.Action("Filtre", "PersonelZiyaret")
+<style>
+    .boldyap > td {
+        font-weight: bold !important;
+    }
+</style>
+<table class="table table-bordered">
+    <thead>
+        <tr class="boldyap">
+            <td>Id</td>
+            <td>İsim</td>
+            <td>Oluşturma Tarihi</td>
+            <td>En Son Güncellenme Tarihi</td>
+            <td>Konum</td>
+            <td>Resim</td>
+            <td>Ziyaret Tarihi</td>
+            <td>Şube</td>
+            <td>Durum</td>
+            <td>Not</td>
+            <td>Güncelle</td>
+            <td>Sil</td>
+            <td>Geçmiş</td>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ZiyaretId</td>
+            <td>@item.Name</td>
+            <td>@item.CreateDate</td>
+            <td>@item.UpdateDate</td>
+            <td>@item.Location</td>
+            @if (item.image == null)
+            {
+                <td>Personel Henüz Resim Yüklemedi</td>
+            }
+            else
+            {
+                <td><img src="~/Content/images/@item.image" width="100" /></td>
+
+            }
+            <td>@item.ZiyaretDate</td>
+            <td>@item.Sube.Name</td>
+            @if (item.DurumId == 1)
+            {
+                <td style="font-weight:bold">Ziyaret Edilmedi</td>
+            }
+            else if (item.DurumId == 2)
+            {
+                <td>Ziyaret Edildi Onay Bekliyor</td>
+
+            }
+            else if (item.DurumId == 3)
+            {
+                <td>Ziyaret Onaylanmadı Tekrar Ziyaret Edilecek</td>
+
+            }
+            else
+            {
+                <td>Ziyaret Onaylandı</td>
+            }
+
+
+            <td>@item.Not</td>
+            <td><a class="btn btn-primary" href="/AdminZiyaret/Update/@item.ZiyaretId">Güncelle</a></td>
+            <td>@Html.ActionLink("Sil", "Delete", new { item.ZiyaretId }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek istiyormusunuz?')" })</td>
+            <td><a class="btn btn-primary" href="/AdminZiyaret/History/@item.ZiyaretId">Geçmiş</a></td>
+
+        </tr>
+    }
+</table>
+
+

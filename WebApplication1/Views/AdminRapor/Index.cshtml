@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<center>
+    <center>
+        <a href="/AdminRapor/IndexList" class="btn btn-primary">Tüm Ziyareler</a><br />
+        <br />
+        <a href="/AdminRapor/ZiyaretEdilecek" class="btn btn-primary">Ziyeret Edilecekler Statüsünde Olanlar</a>
+        <a href="/AdminRapor/OnayBekliyor" class="btn btn-warning">Ziyeret Edildi Onay Bekliyor Statüsünde Olanlar</a>
+        <a href="/AdminRapor/OnaylanmadiZiyaretEdilecek" class="btn btn-danger">Ziyeret Onaylanmadı Tekrar Ziyaret Edilcek Statüsünde Olanlar</a>
+        <a href="/AdminRapor/Onaylandı" class="btn btn-success">Ziyeret Onalandı Statüsünde Olanlar</a>
+    </center>
+    <br />
+    <center>
+        <a href="/AdminRapor/Personeller" class="btn btn-success">Personeller</a>
+        <a href="/AdminRapor/Musteriler" class="btn btn-success">Müşteriler</a>
+        <a href="/AdminRapor/Faturalar" class="btn btn-success">Faturalar</a>
+    </center>
+</center>

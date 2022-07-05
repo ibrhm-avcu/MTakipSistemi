@@ -1,0 +1,19 @@
+﻿@model EntityLayer.Entities.Customer
+@{
+    ViewBag.Title = "Import";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<p>Excel Formatı/Şablonunu <a href="~/Content/import/MusteriEkleOrnekSablon.xlsx"><font style="font-weight:bold">buradan</font></a> indirebilirsiniz.</p>
+@using (Html.BeginForm("Import", "Musteri", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <span style="color:red">@Html.Raw(ViewBag.Error)</span><br />
+    <span style="color:green">@Html.Raw(ViewBag.basarili)</span><br />
+
+    <span>Excel Dosyası</span>
+    <br />
+    <input type="file" name="excelfile" />
+    <input type="submit" class="btn btn-primary" value="ekle" />
+}
+@Html.ValidationMessageFor(x => x.Name, "", new { @style = "color:red" })
+

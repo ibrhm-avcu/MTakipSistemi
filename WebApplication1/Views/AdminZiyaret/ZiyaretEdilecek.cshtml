@@ -1,0 +1,71 @@
+﻿@model PagedList.IPagedList<EntityLayer.Entities.Ziyaret>
+@using PagedList
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Ziyaret Edilecek";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<center><a href="/AdminZiyaret/Create" class="btn btn-primary">Ziyaret Ekle</a></center>
+<br />
+@Html.Action("Filtre", "AdminZiyaret")
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>İsim</td>
+            <td>Personel</td>
+            <td>Oluşturma Tarihi</td>
+            <td>En Son Güncellenme Tarihi</td>
+            <td>Konum</td>
+            <td>Resim</td>
+            <td>Ziyaret Tarihi</td>
+            <td>Şube</td>
+            <td>Durum</td>
+            <td>Not</td>
+            <td>Güncelle</td>
+            <td>Sil</td>
+            <td>Geçmiş</td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            if (item.DurumId == 1)
+            {
+
+                <tr>
+                    <td>@item.ZiyaretId</td>
+                    <td>@item.Name</td>
+                    <td>@item.User.Name</td>
+                    <td>@item.CreateDate</td>
+                    <td>@item.UpdateDate</td>
+                    <td>@item.Location</td>
+                    @if (item.image == null)
+                    {
+                        <td>Personel Henüz Resim Yüklemedi</td>
+                    }
+                    else
+                    {
+                        <td><img src="~/Content/images/@item.image" width="100" /></td>
+
+                    }
+                    <td>@item.ZiyaretDate</td>
+                    <td>@item.Sube.Name</td>
+                    <td style="font-weight:bold">@item.Durumogeleri.Durum</td>
+
+
+
+                    <td>@item.Not</td>
+                    <td><a class="btn btn-primary" href="/AdminZiyaret/Update/@item.ZiyaretId">Güncelle</a></td>
+                    <td>@Html.ActionLink("Sil", "Delete", new { item.ZiyaretId }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek istiyormusunuz?')" })</td>
+                    <td><a class="btn btn-primary" href="/AdminZiyaret/History/@item.ZiyaretId">Geçmiş</a></td>
+
+                </tr>
+            }
+
+        }
+    </thead>
+</table>
+
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }))

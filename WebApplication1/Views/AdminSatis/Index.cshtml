@@ -1,0 +1,59 @@
+﻿@model PagedList.IPagedList<EntityLayer.Entities.Fatura>
+@using PagedList
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<style>
+    .boldyap > td {
+        font-weight: bold !important;
+    }
+</style>
+<table class="table table-bordered">
+    <thead>
+        <tr class="boldyap">
+            <td>Id</td>
+            <td>Fatura Kesim Tarihi</td>
+            <td>Fatura Kesen Personel</td>
+            <td>Fatura Kesilen Müşteri</td>
+            <td>Ürün Adı</td>
+            <td>Doviz Tipi</td>
+            <td>Doviz Fiyatı</td>
+            <td>Fiyatı</td>
+            <td>Miktar</td>
+            <td>Adet</td>
+            <td>Toplam Tutar</td>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.FaturaId</td>
+            <td>@item.FaturaKesimTarihi</td>
+            <td>@item.User.Name</td>
+            <td>@item.Customer.Name</td>
+            <td>@item.ProductName</td>
+            <td>@item.Doviz.DovizName</td>
+            <td>@item.DovizFiyat</td>
+            <td>@item.Price</td>
+            <td>@item.Miktar</td>
+            <td>@item.Adet</td>
+            @if (item.DovizId == 1)
+            {
+                <td>@item.Toplamtutar ₺</td>
+            }
+            else if (item.DovizId == 2)
+            {
+                <td>@item.Toplamtutar $</td>
+            }
+            else if (item.DovizId == 3)
+            {
+                <td>@item.Toplamtutar €</td>
+            }
+        </tr>
+    }
+</table>
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }))
